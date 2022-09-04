@@ -71,12 +71,20 @@ export default function Calendar() {
     calendarApi.addEvent(newPepeEvent)
   }
 
+  function delEvent() {
+    const calendarApi = calendarRef.current.getApi()
+    const events = calendarApi.getEvents()
+
+    events[0].remove()
+  }
+
   return (
     <>
       <h1>Pepe Test</h1>
       <h2>Why you like this jp</h2>
       <button onClick={getAllEvents}>Get Events</button>
       <button onClick={addNewEvent}>New Event</button>
+      <button onClick={delEvent}>Delete Event</button>
       <FullCalendar
         ref={calendarRef}
         plugins={[timeGridPlugin, dayGridPlugin, interactionPlugin]}
