@@ -38,11 +38,37 @@ export default function Calendar() {
     },
   ]
 
+  function handleEventClick(e) {
+    console.log(
+      e.event.title,
+      'starts at',
+      e.event.start,
+      'and ends on',
+      e.event.end
+    )
+  }
+
+  function getAllEvents() {
+    // const calendar = document.getElementsByTagName('FullCalendar')
+    // const events = calendar.getEvents()
+
+    const calendarApi = calendarRef.current.getApi()
+    const events = calendarApi.getEvents()
+
+    events.map((element) => {
+      console.log(element)
+    })
+  }
+
+  const calendarRef = React.createRef()
+
   return (
     <>
       <h1>Pepe Test</h1>
       <h2>Why you like this jp</h2>
+      <button onClick={getAllEvents}>Get Events</button>
       <FullCalendar
+        ref={calendarRef}
         plugins={[timeGridPlugin, dayGridPlugin, interactionPlugin]}
         headerToolbar={headerObj}
         titleFormat={dateObj}
@@ -50,6 +76,7 @@ export default function Calendar() {
         initialView="timeGridWeek"
         editable={true}
         selectable={true}
+        eventClick={handleEventClick}
         events={myEvent}
       />
     </>
