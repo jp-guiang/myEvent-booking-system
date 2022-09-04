@@ -2,6 +2,7 @@ import React from 'react'
 import FullCalendar from '@fullcalendar/react' // must go before plugins
 import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
 import timeGridPlugin from '@fullcalendar/timegrid' // a plugin!
+import interactionPlugin from '@fullcalendar/interaction'
 
 export default function Calendar() {
   const headerObj = {
@@ -22,8 +23,18 @@ export default function Calendar() {
   const myEvent = [
     {
       title: 'Pepe please work',
-      start: '2022-09-04T12:30:00',
-      end: '2022-09-04T14:30:00',
+      start: '2022-09-10T12:30:00',
+      end: '2022-09-10T14:30:00',
+    },
+    {
+      id: 'Another Pepe test',
+      title: 'All-day event',
+      start: new Date().toISOString().replace(/T.*$/, ''),
+    },
+    {
+      id: 'Pepe test again and again',
+      title: 'Timed event',
+      start: new Date().toISOString().replace(/T.*$/, '') + 'T12:00:00',
     },
   ]
 
@@ -32,11 +43,13 @@ export default function Calendar() {
       <h1>Pepe Test</h1>
       <h2>Why you like this jp</h2>
       <FullCalendar
-        plugins={[timeGridPlugin, dayGridPlugin]}
+        plugins={[timeGridPlugin, dayGridPlugin, interactionPlugin]}
         headerToolbar={headerObj}
         titleFormat={dateObj}
-        timeZone="New_Zealand/Wellington"
+        timeZone="local" //"New_Zealand/Wellington"
         initialView="timeGridWeek"
+        editable={true}
+        selectable={true}
         events={myEvent}
       />
     </>
