@@ -38,6 +38,15 @@ export default function Calendar() {
     },
   ]
 
+  const newPepeEvent = {
+    id: '1234',
+    title: 'New pepe event',
+    start: '2022-09-09T11:30:00',
+    end: '2022-09-09T20:30:00',
+  }
+
+  const calendarRef = React.createRef()
+
   function handleEventClick(e) {
     console.log(
       e.event.title,
@@ -49,9 +58,6 @@ export default function Calendar() {
   }
 
   function getAllEvents() {
-    // const calendar = document.getElementsByTagName('FullCalendar')
-    // const events = calendar.getEvents()
-
     const calendarApi = calendarRef.current.getApi()
     const events = calendarApi.getEvents()
 
@@ -60,13 +66,17 @@ export default function Calendar() {
     })
   }
 
-  const calendarRef = React.createRef()
+  function addNewEvent() {
+    const calendarApi = calendarRef.current.getApi()
+    calendarApi.addEvent(newPepeEvent)
+  }
 
   return (
     <>
       <h1>Pepe Test</h1>
       <h2>Why you like this jp</h2>
       <button onClick={getAllEvents}>Get Events</button>
+      <button onClick={addNewEvent}>New Event</button>
       <FullCalendar
         ref={calendarRef}
         plugins={[timeGridPlugin, dayGridPlugin, interactionPlugin]}
