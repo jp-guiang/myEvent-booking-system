@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import FullCalendar, { formatDate } from '@fullcalendar/react'
+import { formatDate } from '@fullcalendar/react'
 
 const initialForm = {
   eventName: '',
@@ -34,15 +34,17 @@ export default function SideBar() {
 
   function allDayToggle(e) {
     const { name, checked } = e.target
+
     const newForm = { ...form, [name]: checked }
-    console.log(newForm)
+
     setForm(newForm)
   }
 
   function handleSubmit(e) {
     e.preventDefault()
+    e.target.allDay.checked = false //this will make the checkbox unticked
     console.log(form)
-    // setForm(initialForm)
+    setForm(initialForm)
   }
 
   return (
@@ -53,52 +55,66 @@ export default function SideBar() {
 
           <form onSubmit={handleSubmit}>
             <div>
-              <label htmlFor="eventName">
-                Event Name:
-                <input
-                  id={'eventName'}
-                  onChange={handleChange}
-                  value={form.eventName}
-                  name={'eventName'}
-                ></input>
-              </label>
-              <label htmlFor="eventDate">
-                Date:
-                <input
-                  id={'eventDate'}
-                  onChange={handleChange}
-                  value={form.eventDate}
-                  name={'eventDate'}
-                ></input>
-              </label>
-              <label htmlFor="startTime">
-                Start Time:
-                <input
-                  id={'startTime'}
-                  onChange={handleChange}
-                  value={form.startTime}
-                  name={'startTime'}
-                ></input>
-              </label>
-              <label htmlFor="endTime">
-                End Time:
-                <input
-                  id={'endTime'}
-                  onChange={handleChange}
-                  value={form.endTime}
-                  name={'endTime'}
-                ></input>
-              </label>
-              <label htmlFor="allDay">
-                All Day:
-                <input
-                  type={'checkbox'}
-                  id={'allDay'}
-                  onChange={allDayToggle}
-                  value={form.allDay}
-                  name={'allDay'}
-                ></input>
-              </label>
+              <div>
+                <label htmlFor="eventName">
+                  Event Name:
+                  <br></br>
+                  <input
+                    id={'eventName'}
+                    onChange={handleChange}
+                    value={form.eventName}
+                    name={'eventName'}
+                  ></input>
+                </label>
+              </div>
+              <div>
+                <label htmlFor="eventDate">
+                  Date:
+                  <br></br>
+                  <input
+                    id={'eventDate'}
+                    onChange={handleChange}
+                    value={form.eventDate}
+                    name={'eventDate'}
+                  ></input>
+                </label>
+              </div>
+              <div>
+                <label htmlFor="startTime">
+                  Start Time:
+                  <br></br>
+                  <input
+                    id={'startTime'}
+                    onChange={handleChange}
+                    value={form.startTime}
+                    name={'startTime'}
+                  ></input>
+                </label>
+              </div>
+              <div>
+                <label htmlFor="endTime">
+                  End Time:
+                  <br></br>
+                  <input
+                    id={'endTime'}
+                    onChange={handleChange}
+                    value={form.endTime}
+                    name={'endTime'}
+                  ></input>
+                </label>
+              </div>
+              <div>
+                <label htmlFor="allDay">
+                  All Day:
+                  <input
+                    type={'checkbox'}
+                    id={'allDay'}
+                    onChange={allDayToggle}
+                    value={form.allDay}
+                    name={'allDay'}
+                  ></input>
+                </label>
+              </div>
             </div>
             <input type="submit"></input>
           </form>
