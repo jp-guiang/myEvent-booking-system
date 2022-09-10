@@ -3,6 +3,7 @@ import FullCalendar from '@fullcalendar/react' // must go before plugins
 import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
 import timeGridPlugin from '@fullcalendar/timegrid' // a plugin!
 import interactionPlugin from '@fullcalendar/interaction'
+import SideBar from './Sidebar'
 
 export default function Calendar() {
   const headerObj = {
@@ -85,18 +86,24 @@ export default function Calendar() {
       <button onClick={getAllEvents}>Get Events</button>
       <button onClick={addNewEvent}>New Event</button>
       <button onClick={delEvent}>Delete Event</button>
-      <FullCalendar
-        ref={calendarRef}
-        plugins={[timeGridPlugin, dayGridPlugin, interactionPlugin]}
-        headerToolbar={headerObj}
-        titleFormat={dateObj}
-        timeZone="local" //"New_Zealand/Wellington"
-        initialView="timeGridWeek"
-        editable={true}
-        selectable={true}
-        eventClick={handleEventClick}
-        events={myEvent}
-      />
+
+      <div className="demo-app">
+        <SideBar />
+        <div className={'demo-app-main'}>
+          <FullCalendar
+            ref={calendarRef}
+            plugins={[timeGridPlugin, dayGridPlugin, interactionPlugin]}
+            headerToolbar={headerObj}
+            titleFormat={dateObj}
+            timeZone="local" //"New_Zealand/Wellington"
+            initialView="timeGridWeek"
+            editable={true}
+            selectable={true}
+            eventClick={handleEventClick}
+            events={myEvent}
+          />
+        </div>
+      </div>
     </>
   )
 }
