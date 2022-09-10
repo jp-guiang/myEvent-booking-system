@@ -1,7 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 import FullCalendar, { formatDate } from '@fullcalendar/react'
 
+const initialForm = {
+  eventName: '',
+  eventDate: '',
+  startTime: '',
+  endTime: '',
+  allDay: false,
+}
 export default function SideBar() {
+  const [form, setForm] = useState(initialForm)
+
   function renderSidebarEvent(event) {
     return (
       <li key={event.id}>
@@ -17,11 +26,83 @@ export default function SideBar() {
     )
   }
 
+  function handleChange(e) {
+    const { name, value } = e.target
+    const newForm = { ...form, [name]: value }
+    setForm(newForm)
+  }
+
+  function allDayToggle(e) {
+    const { name, checked } = e.target
+    const newForm = { ...form, [name]: checked }
+    console.log(newForm)
+    setForm(newForm)
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault()
+    console.log(form)
+    // setForm(initialForm)
+  }
+
   return (
     <>
       <div className={'demo-app-sidebar'}>
-        <h1>Sidebar</h1>
-        <h2>Also sidebar stuff</h2>
+        <div className={'demo-app-sidebar-section'}>
+          <h1>Book an event!</h1>
+
+          <form onSubmit={handleSubmit}>
+            <div>
+              <label htmlFor="eventName">
+                Event Name:
+                <input
+                  id={'eventName'}
+                  onChange={handleChange}
+                  value={form.eventName}
+                  name={'eventName'}
+                ></input>
+              </label>
+              <label htmlFor="eventDate">
+                Date:
+                <input
+                  id={'eventDate'}
+                  onChange={handleChange}
+                  value={form.eventDate}
+                  name={'eventDate'}
+                ></input>
+              </label>
+              <label htmlFor="startTime">
+                Start Time:
+                <input
+                  id={'startTime'}
+                  onChange={handleChange}
+                  value={form.startTime}
+                  name={'startTime'}
+                ></input>
+              </label>
+              <label htmlFor="endTime">
+                End Time:
+                <input
+                  id={'endTime'}
+                  onChange={handleChange}
+                  value={form.endTime}
+                  name={'endTime'}
+                ></input>
+              </label>
+              <label htmlFor="allDay">
+                All Day:
+                <input
+                  type={'checkbox'}
+                  id={'allDay'}
+                  onChange={allDayToggle}
+                  value={form.allDay}
+                  name={'allDay'}
+                ></input>
+              </label>
+            </div>
+            <input type="submit"></input>
+          </form>
+        </div>
       </div>
     </>
     // <div className="demo-app-sidebar">
